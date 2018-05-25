@@ -22,6 +22,9 @@
 	elseif (isset($_GET) && isset($_GET['page']) && $_GET['page'] == 'add_player' && isset($_SESSION['log_in'])){
 		include_once ('parts/add_player.php');
 	}
+	elseif (isset($_GET) && isset($_GET['edit_player']) && !empty($_GET['edit_player'])){
+		include_once ('parts/update_player.php');
+	}
 	else{
 		include_once ('parts/homepage.php');
 	}

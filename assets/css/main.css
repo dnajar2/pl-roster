@@ -133,6 +133,9 @@ a:hover{
 #b_logo img{
 	width: 50%;
 	}
+#pl_roster a{
+	color: #3662b7;
+	}
 .player ul{
 	list-style: none;
 	}
@@ -162,6 +165,9 @@ a:hover{
 	}
 #player>div:nth-child(odd) {
 	background-color: #ececec;
+	}
+.cell.video {
+	padding: 4px 0;
 	}
 /*Modal overwrite*/
 .modal-dialog {
@@ -198,4 +204,10 @@ a:hover{
 	padding: 15px;
 	text-align: center;
 	color: #fff;
+	}
+.green{
+	color: green;
+	}
+.red{
+	color: red;
 	}

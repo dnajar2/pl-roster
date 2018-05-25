@@ -7,7 +7,6 @@
 		$resp = $player->createNewPl($post);
 
 		return $resp;
-
 	}
 
 	function addPlayerImage($post,$file){

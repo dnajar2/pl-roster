@@ -25,7 +25,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/personal/dataBase/includes/library.ph
 				die("Connection failed: " .$this->db->connect_error);
 			}
 			$this->res = new stdClass();
-
 		}
 
 		public function select($sql){
@@ -48,7 +47,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/personal/dataBase/includes/library.ph
 				$row = null;
 			}
 			return $row;
-			
 			$this->db->close();
 		}
 
@@ -67,7 +65,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/personal/dataBase/includes/library.ph
 			}
 			return $this->res;
 			$this->db->close();
-
 		}
 
 		public function update($sql){
@@ -85,5 +82,4 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/personal/dataBase/includes/library.ph
 			return $this->res;
 			$this->db->close();
 		}
-
 	}

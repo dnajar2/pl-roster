@@ -54,7 +54,7 @@
 
 		public function player_list(){
 			$players = null;
-			$sql = $this->dbb->select("SELECT first_name, last_name, player_no FROM roster WHERE active = 1 ORDER by last_name ASC");
+			$sql = $this->dbb->select("SELECT pl_id, first_name, last_name, player_no FROM roster WHERE active = 1 ORDER by last_name ASC");
 
 			return $sql;
 		}
@@ -94,7 +94,7 @@
 //			update roster
 
 			$sql = $this->dbb->update('UPDATE `roster` SET `$field` = "$fieldVal" WHERE `roster`.`pl_id` = $pl_id');
-
+			return $sql;
 
 		}
 		public function createPlGeneralInfo($post){

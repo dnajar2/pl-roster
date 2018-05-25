@@ -36,12 +36,13 @@
 			<hr>
 			<?php echo $pl_counts ?>
 		</div>
-		<div class="cell">
+		<div id="pl_roster" class="cell">
 			Players:
 			<hr>
 			<?php
 				foreach ($players as $key){
-					echo $key['first_name'] . " " . $key['last_name'] ." - #".$key['player_no']."<br>";
+					$pl_id = $key['pl_id'];
+					echo '<a href="?edit_player='.$pl_id.'" title="Edit Player">edit</a> - '.$key['first_name'] . " " . $key['last_name'] ." - #".$key['player_no']."<br>";
 				}
 			?>
 		</div>
@@ -76,38 +77,42 @@
 	</div>
 	<?php
 	}else {
-
+//		not admin
 		$pl_id = $_SESSION['user']['pl_id'];
 		$player = $user->get_player_info($pl_id);
 
-		echo "<div class='player'>";
+		echo "<div class='player col-sm-4'>";
 		echo "<ul>";
-		echo "<li>Player Number: ". $player['pl_id']."</li>";
-		echo "<li>Player Name: ". $player['first_name']." ".$player['last_name']."</li>";
-		echo "<li>Player DOB: ". $player['dob']."</li>";
-		echo "<li>Player Grad Year: ". $player['grad_year']."</li>";
-		echo "<li>Commited: ". $player['commited']."</li>";
-		echo "<li>Position: ". $player['position']."</li>";
+		echo "<li><strong>Player Number</strong>: ". $player['pl_id']." <span class='edit'>Edit</span> 
+				<span class='actions text-right' style='display: none'> 
+					<span>
+						<i class='glyphicon glyphicon-ok green'></i> | <i class='glyphicon glyphicon-remove red'></i>							
+					</span>					
+					<input type='text' name='pl_id' class='form-control' value='".$player['pl_id']."'></li>		
+				</span>";
+		echo "<li><strong>Player Name</strong>: ". $player['first_name']." ".$player['last_name']."</li>";
+		echo "<li><strong>Player DOB</strong>: ". $player['dob']."</li>";
+		echo "<li><strong>Player Grad Year</strong>: ". $player['grad_year']."</li>";
+		echo "<li><strong>Commited</strong>: ". ($player['commited'] ? 'Yes':'No') ."</li>";
+		echo "<li><strong>Position</strong>: ". $player['position']."</li>";
 		echo "</ul>";
 		echo "</div>";
+		echo "<div class='clearfix'></div>";
 		echo "<h2>Recruiting Videos</h2>";
 
 		$videos = $user->get_videos($pl_id);
-	if($videos){
-		foreach ($videos as $key){
-			echo '<div class="cell">';
-			echo "<h3>video title: " . $key['caption'] .'</h3>';
-			echo '<iframe width="320" height="180" src="https://www.youtube.com/embed/'.$key['link'].'" frameborder="0" 
-			allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-			echo '</div>';
+		if($videos){
+			foreach ($videos as $key){
+				echo '<div class="cell video">';
+				echo "<h3>video title: " . $key['caption'] .'</h3>';
+				echo '<iframe width="320" height="180" src="https://www.youtube.com/embed/'.$key['link'].'" frameborder="0" 
+				allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+				echo '</div>';
+			}
+		}else{
+			echo "<h2>No recruiting videos found</h2>";
 		}
-	}else{
-		echo "<h2>No recruiting videos found</h2>";
 	}
-
-	}
-
-
 	?>
 <!-- modals -->
 	<div class="modal fade" tabindex="-1" role="dialog" id="edit_message">
@@ -209,7 +214,10 @@
 		})
 
 	}
-
+	$('.edit').on('click', function(){
+		console.log(this)
+		$(this).hide().next('.actions').show();
+	})
 	$(document).on('focusin', function(e) {
 		if ($(e.target).closest(".mce-window").length) {
 			e.stopImmediatePropagation();
